@@ -1,3 +1,91 @@
+server:
+  port: 8080
+  tomcat:
+    connection-timeout: 300s  # Tomcat ?? ???? 5?
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql: trace # SQL ???? ??
+    org.springframework.web: DEBUG
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 4
+        failureRateThreshold: 50
+        waitDurationInOpenState : 30s
+    instances:
+      lsls:
+        baseConfig: default
+
 spring:
   application:
     name: learningsquad
+  datasource:
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+      dialect: org.hibernate.dialect.MySQL8InnoDBDialect
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: never # ??? ???? ?? ??
+  jwt:
+    secret: ${JWT_SECRET}
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+  cache:
+    type: redis
+
+  #oauth:
+  #  kakao:
+  #    client-id: 5296687da6bb05a25ed3ee9dd3eb2be5
+  #    client-secret: 6RYWfSJ2euRDeOjFORA6AU1fYmqy9O7D
+  #    url:
+  #      auth: https://kauth.kakao.com
+  #      api: https://kapi.kakao.com
+  #    redirect-uri: http://localhost:8080/kakao/callback
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: d799f122b6bf551059076ee90f092a2a
+            client-secret: 6RYWfSJ2euRDeOjFORA6AU1fYmqy9O7D
+            client-authentication-method: client_secret_post
+            authorization-grant-type: authorization_code
+            client-name: Kakao
+            provider: kakao
+            redirect-uri: https://www.learningsquad.shop/kakao/callback
+            scope:
+              - profile_nickname
+              - profile_image
+              - account_email
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+
+flask:
+  upload:
+    base-url: http://3.38.8.140:8000
+  similarity:
+    base-url: http://3.38.8.140:8000
+
+model:
+  base-url: http://3.38.8.140:8000
