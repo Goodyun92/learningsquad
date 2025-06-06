@@ -7,5 +7,7 @@ public class UploadRequestDto {
 
     String documentUrl;
 
+    String csvUrl;
+
     String title;
 }

@@ -9,18 +9,6 @@ logging:
     org.hibernate.type.descriptor.sql: trace # SQL ???? ??
     org.springframework.web: DEBUG
 
-resilience4j:
-  circuitbreaker:
-    configs:
-      default:
-        slidingWindowSize: 10
-        minimumNumberOfCalls: 4
-        failureRateThreshold: 50
-        waitDurationInOpenState : 30s
-    instances:
-      lsls:
-        baseConfig: default
-
 spring:
   application:
     name: learningsquad
@@ -80,12 +68,3 @@ spring:
             token-uri: https://kauth.kakao.com/oauth/token
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user-name-attribute: id
-
-flask:
-  upload:
-    base-url: http://3.38.8.140:8000
-  similarity:
-    base-url: http://3.38.8.140:8000
-
-model:
-  base-url: http://3.38.8.140:8000

@@ -29,7 +29,7 @@ public class DocumentController extends Controller {
      * @param id 문서 ID
      * @return
      */
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ApiResponse getDocument(@PathVariable Long id) {
         return success(documentService.getDocument(id));
     }
