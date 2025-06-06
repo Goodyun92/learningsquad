@@ -35,12 +35,4 @@ public class Controller {
     public <T> ApiResponse<T> response(ResultCode resultCode) {
         return new ApiResponse<T>(resultCode, null, null);
     }
-
-    public <T> Mono<ApiResponse<T>> successMono(T data) {
-        return Mono.just(success(data));
-    }
-
-    public Mono<ApiResponse> failureMono(String message) {
-        return Mono.just(failure(message));
-    }
 }

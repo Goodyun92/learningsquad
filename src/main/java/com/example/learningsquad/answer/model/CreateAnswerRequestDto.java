@@ -6,4 +6,5 @@ import lombok.Getter;
 public class CreateAnswerRequestDto {
     private Long questionId;
     private String answer;
+    private Integer similarityScore;
 }

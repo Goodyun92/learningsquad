@@ -1,15 +1,12 @@
 package com.example.learningsquad.answer.controller;
 
 import com.example.learningsquad.answer.model.CreateAnswerRequestDto;
-import com.example.learningsquad.answer.model.GetAnswerResponseDto;
 import com.example.learningsquad.answer.service.AnswerService;
 import com.example.learningsquad.global.common.controller.Controller;
 import com.example.learningsquad.global.common.model.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Mono;
 
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,20 +22,18 @@ public class AnswerController extends Controller {
      * @return
      */
     @GetMapping("/all/{questionId}")
-    public ApiResponse getAnswers(@PathVariable Long questionId, @RequestParam(required = false, defaultValue = "RECENT") String sort) {
+    public ApiResponse getAllUserAnswers(@PathVariable Long questionId, @RequestParam(required = false, defaultValue = "RECENT") String sort) {
         return success(answerService.getAnswers(questionId, sort));
     }
 
     /**
      * questionId에 해당하는 사용자 답변 생성
-     * @param requestDto (Long questionId, String answer)
+     * @param requestDto (Long questionId, Integer SimilarityScore, String answer)
      * @return
      */
     @PostMapping()
-    public Mono<ApiResponse<GetAnswerResponseDto>> createAnswer(@RequestBody CreateAnswerRequestDto requestDto) {
-        return answerService.createAnswer(requestDto)
-                .flatMap(this::successMono)
-                .onErrorResume(e -> Mono.just(failure("Create Answer Failed : " + e.getMessage())));
+    public ApiResponse createAnswer(@RequestBody CreateAnswerRequestDto requestDto) {
+        return success(answerService.createAnswer(requestDto));
     }
 
 }

@@ -46,12 +46,6 @@ public class QuestionService {
         return GetQuestionResponseDto.of(questionEntity);
     }
 
-    public String getModelAnswer(Long questionId) {
-        return questionRepository.findById(questionId)
-                .orElseThrow(() -> new AppException(ExceptionCode.NON_EXISTENT_QUESTION))
-                .getModelAnswer();
-    }
-
     public QuestionEntity getQuestionEntity(Long questionId) {
         return questionRepository.findById(questionId)
                 .orElseThrow(() -> new AppException(ExceptionCode.NON_EXISTENT_QUESTION));
