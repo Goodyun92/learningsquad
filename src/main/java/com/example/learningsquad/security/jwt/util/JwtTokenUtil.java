@@ -30,7 +30,7 @@ import static com.example.learningsquad.global.exception.ExceptionCode.INVALID_T
 public class JwtTokenUtil {
     // Token
     public static final Long ACCESS_TOKEN_EXPIRE_TIME = 1000L * 60 * 30; // ACCESS 토근 만료 시간: 30분
-    public static final Long REFRESH_TOKEN_EXPIRE_TIME = 1000L * 60 * 60 * 24 * 14; // Refresh 토큰 만료 시간 : 2주
+    public static final Long REFRESH_TOKEN_EXPIRE_TIME = 1000L * 60 * 60 * 24 * 7; // Refresh 토큰 만료 시간 : 7일
     public static final Long REISSUE_EXPIRE_TIME = 1000L * 60 * 60 * 3; // Reissue 만료 시간 : 3시간
 
     // header

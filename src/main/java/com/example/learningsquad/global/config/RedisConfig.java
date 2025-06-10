@@ -57,7 +57,7 @@ public class RedisConfig {
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
-                .entryTtl(Duration.ofMinutes(3L));  // 캐시 만료 시간
+                .entryTtl(Duration.ofDays(7L));  // 캐시 만료 시간
 
         return RedisCacheManager.RedisCacheManagerBuilder
                 .fromConnectionFactory(cf)

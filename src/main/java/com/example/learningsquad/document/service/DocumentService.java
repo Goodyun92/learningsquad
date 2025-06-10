@@ -13,6 +13,7 @@ import com.example.learningsquad.upload.model.UploadRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
@@ -27,8 +28,9 @@ public class DocumentService {
 
     private final DocumentRepository documentRepository;
 
+    @Transactional
     public DocumentEntity saveDocumentFromUpload(UploadRequestDto requestDto) {
-        final String signInId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        final String signInId = SecurityContextHolder.getContext().getAuthentication().getName();
 
         final AccountEntity accountEntity = accountService.findAccountBySignInId(signInId);
 
@@ -47,7 +49,7 @@ public class DocumentService {
     }
 
     public GetDocumentResponseDto getDocument(Long id) {
-        final String signInId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        final String signInId = SecurityContextHolder.getContext().getAuthentication().getName();
         final Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
         final AccountEntity accountEntity = accountService.findAccountBySignInId(signInId);
 
@@ -65,7 +67,7 @@ public class DocumentService {
     }
 
     public List<GetDocumentResponseDto> getDocumentList(Boolean includeQuestions) {
-        final String signInId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        final String signInId = SecurityContextHolder.getContext().getAuthentication().getName();
 
         final AccountEntity accountEntity = accountService.findAccountBySignInId(signInId);
 
@@ -87,7 +89,7 @@ public class DocumentService {
     }
 
     public void deleteDocument(Long id) {
-        final String signInId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        final String signInId = SecurityContextHolder.getContext().getAuthentication().getName();
         final Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
 
         final AccountEntity accountEntity = accountService.findAccountBySignInId(signInId);

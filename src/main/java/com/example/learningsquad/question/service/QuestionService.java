@@ -31,7 +31,7 @@ public class QuestionService {
     }
 
     public GetQuestionResponseDto getQuestion(Long id) {
-        final String signInId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        final String signInId = SecurityContextHolder.getContext().getAuthentication().getName();
         final Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
         final AccountEntity accountEntity = accountService.findAccountBySignInId(signInId);
 
